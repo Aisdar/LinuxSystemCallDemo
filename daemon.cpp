@@ -1,5 +1,12 @@
 #include "daemon.h"
 
+void error_msg(int return_code, char* msg) {
+	if (return_code < 0) {
+		perror(msg);
+		exit(-1);
+	}
+}
+
 
 /* 守护进程的创建 */
 void daemon() {
@@ -14,7 +21,7 @@ void daemon() {
 	// [1]首先将 child1子进程 放入新的session里
 	// [2]在 child1子进程 中再次fork一个子进程作为守护进程
 	if (child1_pid == 0) {
-		setsid();	// 将 child1 子进程放入一个新的session，
+		setsid();	// 关键代码，将 child1 子进程放入一个新的session
 		pid_t daemon_pid = fork();
 		error_msg(daemon_pid, "daemon fork error:");
 		if (daemon_pid == 0) {
@@ -22,6 +29,23 @@ void daemon() {
 			exit(1);
 		}
 		wait();	// 等待子进程调用exit, 替它收尸
+		exit(1);
 	}
 	wait();	// 等待子进程调用exit, 替它收尸
 }
+
+
+// 进程父子关系的树状结构
+//  (session leader)	
+// 		  ↓           (session leader)	
+// father_process+           ↓   
+//               |--child1_process+
+//                                |--daemon_process
+
+
+// session 关系
+// (session leader)	            (session leader)
+//        ↓                            ↓
+// father_process               child1_process+
+//                                            |--daemon_process
+

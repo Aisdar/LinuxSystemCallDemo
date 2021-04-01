@@ -8,12 +8,7 @@
 
 using namespace std;
 
-void error_msg(int return_code, char* msg) {
-	if (return_code < 0) {
-		perror(msg);
-		exit(-1);
-	}
-}
-
+// 错误信息
+void error_msg(int return_code, char* msg);
 // 守护进程demo
 void daemon();
