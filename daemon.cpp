@@ -49,3 +49,4 @@ void daemon() {
 // father_process               child1_process+
 //                                            |--daemon_process
 
+// ╪ыв╟пч╦дак
