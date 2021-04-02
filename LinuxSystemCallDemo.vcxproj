@@ -76,10 +76,14 @@
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
     <ClCompile Include="daemon.cpp" />
+    <ClCompile Include="global.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="wait_waitpid_demo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="daemon.h" />
+    <ClInclude Include="function_demo.h" />
+    <ClInclude Include="global.h" />
   </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
