@@ -1,7 +1,6 @@
 # Linux系统调用学习
 
-
-![加油](https://github.com/fjnucym/LinuxSystemCallDemo/blob/master/icon/comeon.png)
+![学习记录](https://ae01.alicdn.com/kf/Ua0688fd0dbaf4880bb077f25d835f358m.jpg)![加油](https://ae01.alicdn.com/kf/Uaa6ab921383b4e2590746c6beb6382580.jpg)
 
 ## 项目介绍
 
