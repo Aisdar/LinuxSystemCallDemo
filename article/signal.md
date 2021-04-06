@@ -1,18 +1,17 @@
 # 信号
 
-[TOC]
-
-
-
 ## 代码样例
 
-> [代码样例](https://github.com/fjnucym/LinuxSystemCallDemo/blob/master/project/signal_demo.cpp)
+> [代码样例链接🔗](https://github.com/fjnucym/LinuxSystemCallDemo/blob/master/project/signal_demo.cpp)
 
 ## 什么是信号
 
 信号是UNIX和Linux系统响应某些条件而产生的一个事件，接收到该信号的进程会相应地采取一些行动。通常信号是由一个错误产生地。但它们还可以作为进程间通信或修改行为的一种方式。一个信号的产生叫生成，接收到一个信号叫捕获。
 
-> 信号是软件中断。信号提供了一种处理异步事件的方法：终端用户键入中断键，则会通过信号机构停止一个程序。
+> 信号是软件中断。信号提供了一种处理异步事件的方法：终端用户键入中断键，则会通过信号机构停止一个程序。				
+>
+> <p align="right">————《APUE》</p>
+
 
 ## 信号来源
 
@@ -78,4 +77,8 @@ Signo是信号值，当为0时（即空信号），实际不发送任何信号�
 Kill()最常用于pid>0时的信号发送，调用成功返回 0； 否则，返回 -1。
 
 
+
+------
+
+[^大部分转载自AlanTu的博客]: 🔗https://www.cnblogs.com/alantu2018/p/8991343.html
 
