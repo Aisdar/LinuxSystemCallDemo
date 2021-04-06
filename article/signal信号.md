@@ -65,7 +65,7 @@ int kill(pid_t pid, int signo);
 | pid<0&&pid!=-1 | 进程组ID为 -pid的所有有进程             |
 | pid=-1         | 除发送进程自身外，所有进程ID大于1的进程 |
 
-pid参数支持向其他进程组全组发送信号。
+kill()的pid参数支持向其他进程组全组发送信号。
 
 **参数signo**
 
