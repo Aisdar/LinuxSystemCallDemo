@@ -105,6 +105,7 @@ int main(){
 		// 子进程 --> 读进程
 		close(fds[1]);	// 关闭写的文件描述符
         read(fds[0], buf, sizeof(buf));	// 系统调用read写入管道
+        cout << "child buf:" << buf << endl;
         close(fds[0]);	// 规范，关闭文件
 	}
 	return 0;
@@ -146,3 +147,6 @@ int main(){
 ​	2-2 写端一直写，读端正常读，写端进程中断(代码中写端==主进程），主进程被杀，产生broken pipe
 
 FIFO管道文件 -- 有名管道
+
+[^大部分转载自AlanTu的博客]: [linux内核剖析（八）进程间通信之-管道](https://www.cnblogs.com/alantu2018/p/8991343.html)
+

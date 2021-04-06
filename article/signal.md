@@ -80,5 +80,5 @@ Kill()最常用于pid>0时的信号发送，调用成功返回 0； 否则，返
 
 ------
 
-[^大部分转载自AlanTu的博客]: 🔗https://www.cnblogs.com/alantu2018/p/8991343.html
+[^大部分转载自AlanTu的博客]: [linux内核剖析（九）进程间通信之-信号signal](https://www.cnblogs.com/alantu2018/p/8991343.html)
 
