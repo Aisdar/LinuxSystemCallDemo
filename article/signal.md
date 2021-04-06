@@ -2,7 +2,7 @@
 
 ## 代码样例
 
-> [代码样例](https://github.com/fjnucym/LinuxSystemCallDemo/blob/master/signal_demo.cpp)
+> [代码样例](https://github.com/fjnucym/LinuxSystemCallDemo/blob/master/project/signal_demo.cpp)
 
 ## 什么是信号
 
