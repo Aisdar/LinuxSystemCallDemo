@@ -277,8 +277,8 @@ void demo_wait_waitpid2(const char* file_path) {
 // 三个进程是一起创建出来之后再开始执行任务的
 /* father_process+
 *                |--process_C+
-*                     ↑       |--process_B+
-*                     ↑              ↑      |--process_A
+*                     ↑      |--process_B+
+*                     ↑              ↑   |--process_A
 *                     ↑              ↑           ↑ 
 *                  wait for B        ↑           ↑
 *                                wait for A      ↑ 
