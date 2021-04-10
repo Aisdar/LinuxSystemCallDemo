@@ -78,12 +78,16 @@
     <ClCompile Include="daemon.cpp" />
     <ClCompile Include="global.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="named_pipe.cpp" />
+    <ClCompile Include="pipe.cpp" />
+    <ClCompile Include="signal_demo.cpp" />
     <ClCompile Include="wait_waitpid_demo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="daemon.h" />
-    <ClInclude Include="function_demo.h" />
     <ClInclude Include="global.h" />
+    <ClInclude Include="pipe.h" />
+    <ClInclude Include="signal_demo.h" />
   </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

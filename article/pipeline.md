@@ -1,5 +1,11 @@
 # 管道
 
+## 代码样例
+
+[匿名管道](https://github.com/fjnucym/LinuxSystemCallDemo/blob/master/project/pipe.cpp)
+
+[命名管道-双人聊天室案例](https://github.com/fjnucym/LinuxSystemCallDemo/blob/master/project/named_pipe.cpp)
+
 ## 什么是管道
 
 管道是一种两个进程间进行单向通信的机制，因为管道传输数据的单向性，管道又称为半双工管道。
@@ -8,10 +14,18 @@
 
 - 数据只能由一个进程流向另一个进程（其中一个读管道，一个写管道）；如果要进行全双工通信，需要建立两个管道。
 
-- 管道只能用于父子进程或者兄弟进程间通信。也就是说只能用于具有亲缘关系得进程间通信
+- 管道只能用于父子进程或者兄弟进程间通信。也就是说只能用于**具有亲缘关系的进程间通信**
 
-事实上对于这种管道我们也称其为“匿名管道”。
+关于第二点提到的只有具有亲缘关系的进程具体体现在管道的写端与读端只能在某个进程被创建，之后由fork()创建子进程后建立通信关系。
+
+## 匿名管道-命名管道
+
+命名管道和匿名管道都可以在进程间传送消息，命名管道和匿名管道有着相同特点，但命名管道克服了匿名管道只能在具有亲缘关系的进程间通信的问题。即**命名管道允许进程间无亲缘关系的通信**。
+
+命名管道也称为FIFO，是一种永久性的机构。FIFO文件也具有文件名、文件长度、访问许可权等属性，它也能像其它Linux文件那样被打开、关闭和删除，所以任何进程都能找到它。换句话说，即使是不同祖先的进程，也可以利用命名管道进行通信。
+
 ## 信号和消息的区别
+
 > 我们知道，进程间信号通信机制在传递信息时是以信号为载体的，但管道通信机制的信息载体是消息。那么信号和消息之间的区别在哪里呢？
 - 数据内容方面：信号只是预定义的代码，用于表示系统发生的某一状况；消息则为一组连续语句或符号，不过量也不会太大。
 - 在作用方面，信号担任进程间少量信息的传送，一般为内核程序用来通知用户进程的一些异常情况的发生；消息则用于进程间交换彼此的数据。
@@ -70,6 +84,9 @@ int pipe(int filedes[2]);
 这里，管道按FIFO（先进先出）方式传送消息，且只能单向传送消息（如图）。
 
 <p align="center"><img src="https://ae01.alicdn.com/kf/U0259fde9cccb44629ed5d9d2540a679a8.jpg" width="400" height="200" /> </p>
+<p align="center">管道文件描述符</p>
+
+
 
 
 
@@ -114,39 +131,108 @@ int main(){
 
 ## 命名管道
 
-暂时没有整理
+**命名管道mkfifo**
 
-## 匿名管道与命名管道的区别
+mkfifo函数的作用是在文件系统中创建一个文件，该文件用于提供FIFO功能，即命名管道。上边提到的管道都是无名的，故称为"匿名管道"，匿名管道对于文件系统是不可见的，它的作用仅限于在父进程和子进程间进行通信。而命名管道是一个可见的文件，因此它可以用于任何两个进程之间的通信，不管这两个进程是父子进程，也不管这两个进程有没有关系。
 
-暂未整理
+```c
+#include <sys/types.h>
+#include <sys/stat.h>
+int mkfifo(const char *pathname, mode_t mode);
+```
 
-## 上课笔记
+- pathname 是将要在文件系统中创建的一个专用文件路径。
+- mode 是用来规定FIFO的读写权限。
+- mkfifo函数如果调用成功，返回值为0；调用失败则返回值为-1.
+```c
+// 检测管道文件是否存在
+if(access("/root/named_pipe.fifo", F_OK) == -1){
+	perror("/root/named_pipe.fifo file is not exist!");
+}
+```
+```c
+// 创建命名管道
+int reslut;
+result = mkfifo("/root/named_pipe.fifo", S_OK | 0777);
+if(result < 0){
+    perror("named_pipe create error");
+    exit(-1);
+}
+```
 
+**命名管道读写**
 
+管道的外部存在形式是文件，与其他Linux的文件一样，想要使用必须要先打开
 
+```c
+// 打开管道
+int pipe_fd = open("/root/named_pipe.fifo", O_RDONLY)
+```
 
+```c
+// 读端
+int pipe_fd = open("/root/named_pipe.fifo", O_RDONLY)
+char buf[1024] = { '\0' };
+int r_size = read(pipe_fd, buf, sizeof(buf));	// 读取管道内容
+```
 
-1、管道半双工 单行道 如果需要双向流通那么就需要两个管道
+```c
+// 写端
+int pipe_fd = open("/root/named_pipe.fifo", O_RDONLY)
+char buf[] = { "Hello Linux" };
+int w_size = write(pipe_fd, buf, sizeof(buf));	// 写入管道内容
+```
 
-2、fd文件描述符数组来实现的通信
+可以看出命名管道想要实现通信，通信双方的进程都必须通过在文件系统中的文件名来进行交互。这就是说**想要通过命名管道通信，必须知道外部的FIFO文件名**。
 
-3、pipe是用于创建管道的函数
+*注意事项:*程序不能以O_RDWR模式打开FIFO文件。如果需要进行两个进程间双向通信，也需要两个命名管道，但它在使用open系统调用函数打开时需要注意以下几个特点。
 
-4、匿名管道 用在父子进程或者兄弟进程
+- 如果当前操作是为了读（read）而打开FIFO文件时，若已经有相应进程为写打开该FIFO文件，则open系统调用返回成功。否则进程可能被open系统调用阻塞直到有进程为了写（write）而打开FIFO文件。当使用系统调用write系统调用且设置了非阻塞标志标志（O_RDONLY | O_NONBLOCK）时open也会返回成功。
+- 如果当前打开操作是为写(write)而打开FIFO时，如果已经有相应进程为读而打开该FIFO文件，则当前打开操作将成功返回；否则，可能阻塞直到有相应进程为读而打开该FIFO（当前打开操作设置了阻塞标志）或者，返回ENXIO错误（当前打开操作没有设置阻塞标志）
 
-5、有名管道 可以使用在没有关系的两个进程中，以文件作为数据流的载体实现进程间通信，实现两个工程伪聊天，有名管道的文件一但被删掉，这个管道所在的进程就会有逻辑错误。并且管道文件可以被某些管道软件直接查看，数据不安全。
+**命令行创建命名管道文件**
 
+```shell
+$ mkfifo filename
+```
 
+## 管道的最大容量
 
-1、如果写端不写数据，读端read是一个阻塞式函数，管道中没有数据的时候读不到东西就无法返回
+```c
+int fds[2];
+	char buf = 'a';
+	int res = pipe(fds);
+	if (res < 0) {
+		perror("create pipe error");
+		exit(-1);
+	}
 
-2.如果写端一直写 读端补读，管道会占满，最大65535字节 64KB
+	// 创建子进程，管道只有一端时开启在运行时会报出Broken Pipe错误
+	pid_t pid = fork();
+	if (pid < 0) {
+		perror("fork error");
+		exit(-1);
+	}
 
-​	2-1 写端一直写，读端不读，读端进程中断 产生Broken pipe 管道损坏
+	if (pid == 0) {
+		close(fds[0]);	// [重要]!关闭读端
+		int num = 0;
+		while (1) {
+			num += write(fds[1], &buf, sizeof(char));	// 每次写一个char变量(1字节)
+			cout << "pipe now has " << num << " bytes！" << endl;
+		}
+	}
+	else if(pid > 0){
+		close(fds[1]);	// [重要]!关闭写端
+		int num = 0;
+		while (1) {
+			// 不做任何事情，等待管道写满
+		}
+	}
+```
 
-​	2-2 写端一直写，读端正常读，写端进程中断(代码中写端==主进程），主进程被杀，产生broken pipe
+<p align="center"><img src="https://ae01.alicdn.com/kf/U8e313e1d0f2846ffa150b9df19b71687K.jpg" width="330" height="260" /> </p>
+<p align="center">管道容量测试</p>
 
-FIFO管道文件 -- 有名管道
-
-[^大部分转载自AlanTu的博客]: [linux内核剖析（八）进程间通信之-管道](https://www.cnblogs.com/alantu2018/p/8991343.html)
+[^部分转载自AlanTu的博客]: [linux内核剖析（八）进程间通信之-管道](https://www.cnblogs.com/alantu2018/p/8991343.html)
 

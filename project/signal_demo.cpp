@@ -1,4 +1,5 @@
 #include "signal_demo.h"
+#include "global.h"
 #include <iostream>
 #include <signal.h>
 #include <unistd.h>
@@ -261,11 +262,3 @@ void hanlder_sigaction(int num) {
 	// 具体体现在不会被该信号中断
 	sleep(10);
 }
-
-void fork_error_msg(int return_code, const char* msg) {
-	if (return_code < 0) {
-		perror(msg);
-		exit(-1);
-	}
-}
-
