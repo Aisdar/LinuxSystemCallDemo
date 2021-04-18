@@ -76,12 +76,14 @@
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
     <ClCompile Include="client.cpp" />
+    <ClCompile Include="client_group.cpp" />
     <ClCompile Include="daemon.cpp" />
     <ClCompile Include="global.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="named_pipe.cpp" />
     <ClCompile Include="pipe.cpp" />
     <ClCompile Include="server.cpp" />
+    <ClCompile Include="server_group.cpp" />
     <ClCompile Include="signal_demo.cpp" />
     <ClCompile Include="wait_waitpid_demo.cpp" />
   </ItemGroup>
