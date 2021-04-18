@@ -8,6 +8,8 @@ Linux系统调用的学习纪实与样例代码整合，**学习记录**中是�
 
 ## 学习记录
 
+**2021.4.18** [线程同步-信号量semaphore](https://github.com/fjnucym/LinuxSystemCallDemo/blob/master/article/semaphore.md) 
+
 | **2021.4.15**                                                | **2021.4.18**                                                |      |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ---- |
 | [客户端-服务器-私聊](https://github.com/fjnucym/LinuxSystemCallDemo/blob/master/article/client_server.md) | [客户端-服务器-私聊\|群聊](https://github.com/fjnucym/LinuxSystemCallDemo/blob/master/article/client_server.md) |      |
