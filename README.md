@@ -8,7 +8,9 @@ Linux系统调用的学习纪实与样例代码整合，**学习记录**中是�
 
 ## 学习记录
 
-**2021.4.18** [线程同步-信号量semaphore](https://github.com/fjnucym/LinuxSystemCallDemo/blob/master/article/semaphore.md) 
+**2021.4.21** [进程同步 IPC-Semaphore](https://github.com/fjnucym/LinuxSystemCallDemo/blob/master/article/IPC-Semaphore) 
+
+**2021.4.18** [线程同步 POSIX-Semaphore](https://github.com/fjnucym/LinuxSystemCallDemo/blob/master/article/POSIX-Semaphore) 
 
 | **2021.4.15**                                                | **2021.4.18**                                                |      |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ---- |

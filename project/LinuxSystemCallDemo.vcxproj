@@ -82,6 +82,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="named_pipe.cpp" />
     <ClCompile Include="pipe.cpp" />
+    <ClCompile Include="semaphore.cpp" />
     <ClCompile Include="server.cpp" />
     <ClCompile Include="server_group.cpp" />
     <ClCompile Include="signal_demo.cpp" />
