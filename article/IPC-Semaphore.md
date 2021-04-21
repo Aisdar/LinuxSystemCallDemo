@@ -2,7 +2,7 @@
 
 ## 代码样例
 
-[两进程PV操作-同步进程](https://github.com/fjnucym/LinuxSystemCallDemo/blob/master/project/IPC-Semaphore.cpp)
+[两进程PV操作-同步进程](https://github.com/fjnucym/LinuxSystemCallDemo/blob/master/project/IPC_Semaphore.cpp)
 
 ## 信号量创建和控制
 

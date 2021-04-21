@@ -79,6 +79,7 @@
     <ClCompile Include="client_group.cpp" />
     <ClCompile Include="daemon.cpp" />
     <ClCompile Include="global.cpp" />
+    <ClCompile Include="IPC_Semaphore.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="named_pipe.cpp" />
     <ClCompile Include="pipe.cpp" />
